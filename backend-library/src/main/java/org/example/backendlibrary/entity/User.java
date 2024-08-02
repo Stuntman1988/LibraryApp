@@ -24,4 +24,7 @@ public class User {
 
     @Column(name = "created_at")
     private Date created_at;
+
+    @Column(name = "admin")
+    private boolean admin;
 }
