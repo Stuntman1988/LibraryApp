@@ -11,6 +11,7 @@ import { AuthProvider } from './auth/AuthContext'
 import {ReviewListPage} from "./layouts/BookCheckoutPage/ReviewListPage/ReviewListPage.tsx";
 import {ShelfPage} from "./layouts/ShelfPage/ShelfPage.tsx";
 import {SecureRoute} from "./auth/SecureRoute.tsx";
+import {MessagePage} from "./layouts/MessagesPage/MessagePage.tsx";
 
 export const App = () => {
 
@@ -27,6 +28,7 @@ export const App = () => {
             <Route path='/checkout/:bookId' element={<BookCheckoutPage />} />
             <Route path='/login' element={<LoginPage />} />
             <Route path='/shelf' element={<SecureRoute comp={ShelfPage} />} />
+            <Route path='/messages' element={<SecureRoute comp={MessagePage}/>} />
           </Routes>
         </div>
         <Footer />
