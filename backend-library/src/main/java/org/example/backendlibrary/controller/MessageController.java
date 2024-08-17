@@ -3,6 +3,7 @@ package org.example.backendlibrary.controller;
 import org.example.backendlibrary.dao.UserRepository;
 import org.example.backendlibrary.entity.Message;
 import org.example.backendlibrary.entity.User;
+import org.example.backendlibrary.requestmodels.AdminQuestionRequest;
 import org.example.backendlibrary.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,5 +31,17 @@ public class MessageController {
             throw new Exception("User email is missing");
         }
         messageService.postMessage(messageRequest, user.get().getEmail());
+    }
+
+    @PutMapping("/secure/admin/message/")
+    public void putMessage(@RequestHeader(value = "authToken") String token, @RequestBody AdminQuestionRequest adminQuestionRequest) throws Exception {
+        Optional<User> user = userRepository.findUserByEmail(token);
+        if (user.isEmpty()) {
+            throw new Exception("User email is missing");
+        }
+        if (!user.get().isAdmin()) {
+            throw new Exception("User is not an admin");
+        }
+        messageService.putMessage(adminQuestionRequest, user.get().getEmail());
     }
 }

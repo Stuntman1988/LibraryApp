@@ -1,16 +1,16 @@
-
-import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
+import React, {createContext, ReactNode, useContext, useEffect, useState} from 'react';
 
 interface AuthContextType {
     isAuth: boolean;
     login: (token: string) => void;
     logout: () => void;
+    checkIfAdmin: () => Promise<boolean>;
     loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({children}) => {
     const [isAuth, setIsAuth] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -32,8 +32,29 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setIsAuth(false);
     };
 
+    const checkIfAdmin = async (): Promise<boolean> => {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            return false;
+        }
+        const url = `http://localhost:8080/api/users/search/checkIfUserIsAdmin/`
+        const headersOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'authToken': token
+            }
+        }
+        const response = await fetch(url, headersOptions);
+
+        if (!response.ok) {
+            return false
+        }
+        return await response.json()
+    }
+
     return (
-        <AuthContext.Provider value={{ isAuth, login, logout, loading }}>
+        <AuthContext.Provider value={{isAuth, login, logout, checkIfAdmin, loading}}>
             {children}
         </AuthContext.Provider>
     );
@@ -46,10 +67,6 @@ export const useAuth = (): AuthContextType => {
     }
     return context;
 };
-
-
-
-
 
 
 /*import React, { createContext, useState, ReactNode, useEffect } from 'react';

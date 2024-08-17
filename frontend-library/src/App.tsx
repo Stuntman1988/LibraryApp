@@ -12,6 +12,7 @@ import {ReviewListPage} from "./layouts/BookCheckoutPage/ReviewListPage/ReviewLi
 import {ShelfPage} from "./layouts/ShelfPage/ShelfPage.tsx";
 import {SecureRoute} from "./auth/SecureRoute.tsx";
 import {MessagePage} from "./layouts/MessagesPage/MessagePage.tsx";
+import {ManageLibraryPage} from "./layouts/ManageLibraryPage/ManageLibraryPage.tsx";
 
 export const App = () => {
 
@@ -29,6 +30,7 @@ export const App = () => {
             <Route path='/login' element={<LoginPage />} />
             <Route path='/shelf' element={<SecureRoute comp={ShelfPage} />} />
             <Route path='/messages' element={<SecureRoute comp={MessagePage}/>} />
+            <Route path='/admin' element={<SecureRoute comp={ManageLibraryPage}/>} />
           </Routes>
         </div>
         <Footer />
