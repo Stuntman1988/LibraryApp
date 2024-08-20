@@ -1,15 +1,30 @@
 import {NavLink, useNavigate} from "react-router-dom"
 import {useAuth} from "../../auth/AuthContext";
+import {useEffect, useState} from "react";
+import {SpinnerLoading} from "../Utils/SpinnerLoading.tsx";
 
 
 export const Navbar = () => {
-    const {isAuth, logout} = useAuth()
+    const {isAuth, logout, checkIfAdmin} = useAuth()
+    const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
     const navigate = useNavigate()
 
     const handleLogout = () => {
         logout()
         navigate('/home')
     };
+
+    useEffect(() => {
+        const verifyAdmin = async () => {
+            const adminStatus = await checkIfAdmin();
+            setIsAdmin(adminStatus);
+        };
+        verifyAdmin();
+    }, [checkIfAdmin]);
+
+    if (isAdmin === null) {
+        return <SpinnerLoading/>
+    }
 
     return (
         <nav className='navbar navbar-expand-lg navbar-dark main-color py-3'>
@@ -33,6 +48,11 @@ export const Navbar = () => {
                                 <NavLink className="nav-link" to={'/shelf'}>My Shelf</NavLink>
                             </li>
                         }
+                        {isAdmin &&
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to={'/admin'}>Admin</NavLink>
+                            </li>
+                        }
                     </ul>
                     <ul className='navbar-nav ms-auto'>
                         <li className='nav-item m-1'>
@@ -42,7 +62,6 @@ export const Navbar = () => {
                                 :
                                 <a type='button' className='btn btn-outline-light' href='/login'>Sign in</a>
                             }
-
                         </li>
                     </ul>
                 </div>

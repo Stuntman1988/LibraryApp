@@ -4,6 +4,7 @@ import {Navigate} from "react-router-dom";
 import {SpinnerLoading} from "../Utils/SpinnerLoading.tsx";
 import {AdminMessages} from "./components/AdminMessages.tsx";
 import {AddNewBook} from "./components/AddNewBook.tsx";
+import {ChangeQuantityOfBooks} from "./components/ChangeQuantityOfBooks.tsx";
 
 
 export const ManageLibraryPage = () => {
@@ -79,7 +80,7 @@ export const ManageLibraryPage = () => {
                     <div className="tab-pane fade" id="nav-quantity" role="tabpanel"
                          aria-labelledby="nav-quantity-tab">
                         {changeQuantityOfBooksClick ?
-                            <>Change Quantity</>
+                            <ChangeQuantityOfBooks/>
                             :
                             <></>
                         }
@@ -87,7 +88,7 @@ export const ManageLibraryPage = () => {
                     <div className="tab-pane fade" id="nav-messages" role="tabpanel"
                          aria-labelledby="nav-messages-tab">
                         {messegesClick ?
-                            <AdminMessages />
+                            <AdminMessages/>
                             :
                             <></>
                         }
