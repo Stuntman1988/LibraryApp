@@ -13,6 +13,7 @@ import {ShelfPage} from "./layouts/ShelfPage/ShelfPage.tsx";
 import {SecureRoute} from "./auth/SecureRoute.tsx";
 import {MessagePage} from "./layouts/MessagesPage/MessagePage.tsx";
 import {ManageLibraryPage} from "./layouts/ManageLibraryPage/ManageLibraryPage.tsx";
+import {PaymentPage} from "./layouts/PaymentPage/PaymentPage.tsx";
 
 export const App = () => {
 
@@ -31,6 +32,7 @@ export const App = () => {
             <Route path='/shelf' element={<SecureRoute comp={ShelfPage} />} />
             <Route path='/messages' element={<SecureRoute comp={MessagePage}/>} />
             <Route path='/admin' element={<SecureRoute comp={ManageLibraryPage}/>} />
+            <Route path='/fees' element={<SecureRoute comp={PaymentPage}/>} />
           </Routes>
         </div>
         <Footer />

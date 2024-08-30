@@ -48,6 +48,11 @@ export const Navbar = () => {
                                 <NavLink className="nav-link" to={'/shelf'}>My Shelf</NavLink>
                             </li>
                         }
+                        {isAuth &&
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to={'/fees'}>Pay Fees</NavLink>
+                            </li>
+                        }
                         {isAdmin &&
                             <li className="nav-item">
                                 <NavLink className="nav-link" to={'/admin'}>Admin</NavLink>
